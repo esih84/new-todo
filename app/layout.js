@@ -3,6 +3,7 @@ import './globals.css'
 import ReactQueryProvide from '@/providers/reactQueryProvide'
 import NextAuthProvider from '@/providers/nextAuthProvider'
 import AddTodo from '@/components/dialog/addTodo'
+import EditTodo from '@/components/dialog/editTodo'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
         <ReactQueryProvide>
           <NextAuthProvider>
             <AddTodo/>
+            <EditTodo/>
             {children}
           </NextAuthProvider>
         </ReactQueryProvide>  

@@ -110,22 +110,21 @@ export const addTodo = async(todo)=>{
     
   }
 }
-// export const editTodo = async (id,body) => {
-//   try{
-
-//     const res =await fetch(`http://localhost:4000/todos/${id}`,{
-//       method:"PATCH",
-//       headers:{
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({body})
-//     })
-//     if (!res.ok) {  
-//       return {status:"failed"}
+export const editTodo = async ({id,todo}) => {
+  try{
+    // console.log(todo)
+    const res =await fetch(`http://localhost:4000/todos/${id}`,{
+      method:"PATCH",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({body:todo})
+    })
+    if (!res.ok) {  
+      throw new Error("مشکلی پیش آمده")
       
-//     }
-//   revalidatePath("/");
-// }catch{
-//   return({status:"failed"})
-// } 
-// };
+    }
+}catch{
+  throw new Error("مشکلی پیش آمده")
+} 
+};
