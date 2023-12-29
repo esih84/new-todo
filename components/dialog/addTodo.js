@@ -2,18 +2,34 @@
 
 import useTodo from '@/hooks/useAddTodo';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import DialogBase from './dailog';
+import { addTodo } from '@/server/action';
+import { useMutation } from '@tanstack/react-query';
 
 export default function AddTodo() {
     const router = useRouter()
     const [todo, setTodo]= useState("")
     const addModal =  useTodo()
     // console.log(todo)
+    const mutation = useMutation({mutationFn:addTodo})
     const submitHandler =async(e)=>{
         e.preventDefault()
 
+        mutation.mutate(todo)
+        console.log(mutation)
+          if (mutation.isSuccess) {
+            toast.success("یادداشت ایجاد شد")
+            setTimeout(()=>addModal.onClose(),1000)
+            setTodo("")
+            router.refresh()
+          }
+          if(mutation.error){
+            toast.error("مشکلی پیش آمده")
+          }
 
+        // }
     }
     
     

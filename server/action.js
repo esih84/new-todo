@@ -3,7 +3,7 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 
 import { redirect } from "next/navigation";
-import {serverAuth, serverAuthJson} from "@/utils/serverAuth";
+import {serverAuthJson} from "@/utils/serverAuth";
 
 
 
@@ -89,36 +89,30 @@ import {serverAuth, serverAuthJson} from "@/utils/serverAuth";
 //   return newUser
 // }
 
-// export const addTodo = async(todo)=>{
-//   try {
+export const addTodo = async(todo)=>{
+  try {
 
-//   const {currentUser} = await serverAuthJson()
-//     // console.log(currentUser)
-//   const res =await fetch(`http://localhost:4000/todos`,{
-//     method:"POST",
-//     headers:{
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({body:todo,userId:currentUser[0].id})
-//   })
-//   if (!res.ok) {  
-//     return {status:"failed"}
+  const {currentUser} = await serverAuthJson()
+    // console.log(currentUser)
+  const res =await fetch(`http://localhost:4000/todos`,{
+    method:"POST",
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({body:todo,userId:currentUser[0].id})
+  })
+  if (!res.ok) {  
+    throw new Error("مشکلی پیش آمده")
     
-//   }
-//   // const res = await fetch('/api/todos/addTodo',{
-//   //     method:"POST",
-//   //     body:JSON.stringify({todo}),
-//   //     headers:{'Content-Type': "application/json"}
-//   // })
-//   const data = await res.json()
-//   return {...data, status:"success"}
-// }catch (error) {
-//     // console.log(error)
-//     // throw new Error(error.message)
-//     return {status:"failed"}
+  }
+  const data = await res.json()
+  return {...data}
+}catch (error) {
+    // console.log(error)
+    throw new Error(error.message)
     
-//   }
-// }
+  }
+}
 // export const editTodo = async (id,body) => {
 //   try{
 
