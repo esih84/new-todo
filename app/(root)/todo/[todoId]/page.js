@@ -6,6 +6,7 @@ import { Card, CardActions, CardContent, Checkbox,Container,Typography } from '@
 import axios from "axios";
 import Loading from "@/modules/Loading";
 import { useQuery } from "@tanstack/react-query";
+import Buttons from "@/modules/Buttons";
 
 
 const TodoDetail = ({params:{todoId}}) => {
@@ -34,6 +35,8 @@ const TodoDetail = ({params:{todoId}}) => {
                 </Typography>
                 </CardContent>
                 <CardActions dir="ltr" >
+                    <Buttons todo={data}/>
+
                 </CardActions>
             </Card>
         </Container>

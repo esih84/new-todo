@@ -1,5 +1,6 @@
 'use client'
 
+import Buttons from '@/modules/Buttons';
 import { Box ,Typography } from '@mui/material';
 import Link from 'next/link';
 
@@ -13,6 +14,7 @@ const Todo = ({todo}) => {
       {todo.body}
     </Link>
     </Typography>
+    <Buttons todo={todo}/>
 
     </Box>
     );
