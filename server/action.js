@@ -44,44 +44,33 @@ export const fetchTodos = async({take=5, PageNumber=1})=>{
 
 }
 
-// export const fetchTodo = async(todoId)=>{
-//   try {
-//     let fetchtodo = await fetch(`http://localhost:4000/todos/${todoId}`)
-//     const todo = await fetchtodo.json()
-//     // console.log(todo)
-//     return todo
-    
-//   } catch (error) {
-//     throw new Error('مشکلی پیش آمده است')
-    
-//   }
-// }
 
-// export const deleteTodoJson = async (id) => {
-//   try {
-//     const res = await fetch(`http://localhost:4000/todos/${id}`,{
-//       method:"DELETE",
-//       headers:{
-//         'Content-Type': 'application/json'
-//       },
-//     })
-//     if (!res.ok) {  
-//       return {status:"failed"}
+
+export const deleteTodoJson = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:4000/todos/${id}`,{
+      method:"DELETE",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+    })
+    if (!res.ok) {  
+      return {status:"failed"}
       
-//     }
-//     // revalidateTag('/')
-//     // revalidatePath('/')
-//     // redirect('/')
+    }
+    // revalidateTag('/')
+    // revalidatePath('/')
+    // redirect('/')
     
-//   } catch (error) {
-//     console.log(error)
-//     return {status:"failed"}
+  } catch (error) {
+    console.log(error)
+    return {status:"failed"}
 
-//     // throw new Error('مشکلی پیش آمده است')
+    // throw new Error('مشکلی پیش آمده است')
     
-//   }
+  }
 
-// };
+};
 
 
 
