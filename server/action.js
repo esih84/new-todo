@@ -8,33 +8,41 @@ import {serverAuthJson} from "@/utils/serverAuth";
 
 
 
-// export const fetchJsonTodos = async({take=5, PageNumber=1})=>{
-//   try {
-//     const {currentUser}=await serverAuthJson()
-//     // console.log(currentUser[0])
-//     // http://localhost:4000/users/2?_embed=todos
-//     // http://localhost:4000/todos?_page=2&_limit=5
-//     // http://localhost:4000/todos?userId=1&_page=2&_limit=4
-//     let fetchtodos = await fetch(`http://localhost:4000/todos?userId=${currentUser[0].id}&_page=${PageNumber}&_limit=${take}`)
-//     const todos = await fetchtodos.json()
-//     const fetchTotal = await fetch(`http://localhost:4000/todos?userId=${currentUser[0].id}&_order=desc`)
-//     const total = await fetchTotal.json()
-//     revalidatePath('/')
-//     return {
-//       data : todos,
-//       metadata:{
-//           hasNextPage: PageNumber < Math.ceil(total.length/take),
-//           totalPage : Math.ceil(total.length/take)
-//       }
-//   }
-//   } catch (error) {
-//     // console.log(error)
-//     throw new Error('مشکلی پیش آمده است')
-//   }
+export const fetchTodos = async({take=5, PageNumber=1})=>{
+  try {
+    const {currentUser}=await serverAuthJson()
+    // console.log(currentUser[0])
+    // http://localhost:4000/users/2?_embed=todos
+    // http://localhost:4000/todos?_page=2&_limit=5
+    // http://localhost:4000/todos?userId=1&_page=2&_limit=4
+    let fetchtodos = await fetch(`http://localhost:4000/todos?userId=${currentUser[0].id}&_page=${PageNumber}&_limit=${take}`)
+    if (!fetchtodos.ok) {  
+      throw new Error("مشکلی پیش آمده")
+      
+    }
+    const todos = await fetchtodos.json()
+    const fetchTotal = await fetch(`http://localhost:4000/todos?userId=${currentUser[0].id}&_order=desc`)
+    if (!fetchTotal.ok) {  
+      throw new Error("مشکلی پیش آمده")
+      
+    }
+    const total = await fetchTotal.json()
+    revalidatePath('/')
+    return {
+      data : todos,
+      metadata:{
+          hasNextPage: PageNumber < Math.ceil(total.length/take),
+          totalPage : Math.ceil(total.length/take)
+      }
+  }
+  } catch (error) {
+    // console.log(error)
+    throw new Error('مشکلی پیش آمده است')
+  }
 
 
 
-// }
+}
 
 // export const fetchTodo = async(todoId)=>{
 //   try {
