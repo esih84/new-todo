@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import ReactQueryProvide from '@/providers/reactQueryProvide'
 import NextAuthProvider from '@/providers/nextAuthProvider'
+import Header from '@/components/layouts/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ReactQueryProvide>
           <NextAuthProvider>
+            <Header/>
             {children}
           </NextAuthProvider>
         </ReactQueryProvide>  
