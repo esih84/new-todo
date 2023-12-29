@@ -13,6 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import useTodo from '@/hooks/useAddTodo';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -78,6 +79,7 @@ export default function Header() {
 
   }
 
+  const addModal =  useTodo()
 
   return (
     <Box bgcolor='primary' sx={{ flexGrow: 1, }}>
@@ -109,10 +111,10 @@ export default function Header() {
           
           <Box sx={{ flexGrow: 1, display:{xs:'none', sm:"block"} }} />
           <Box sx={{ display: 'flex'  }}>
-            <IconButton size="large" aria-label="show 4 new mails"  color="inherit">
+            <IconButton size="large" aria-label="show 4 new mails" onClick={addModal.onOpen} color="inherit">
                 <AddCircleRoundedIcon />
             </IconButton>
-            <IconButton sx={{ ml: 1, display: { xs: 'block', sm: 'block' }  }}  color="inherit">
+            <IconButton sx={{ ml: 1, display: { xs: 'block', sm: 'block' }  }} color="inherit">
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Box>
