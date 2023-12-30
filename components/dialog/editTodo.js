@@ -25,7 +25,7 @@ export default function EditTodo() {
 
     }})
     
-    const submitHandler =async(e)=>{
+    const submitHandler =(e)=>{
         mutation.mutate({id,todo})
         // console.log(mutation)
           if (mutation.isSuccess) {

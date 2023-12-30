@@ -46,7 +46,7 @@ export const fetchTodos = async({take=5, PageNumber=1})=>{
 
 
 
-export const deleteTodoJson = async (id) => {
+export const deleteTodo = async (id) => {
   try {
     const res = await fetch(`http://localhost:4000/todos/${id}`,{
       method:"DELETE",
@@ -55,7 +55,7 @@ export const deleteTodoJson = async (id) => {
       },
     })
     if (!res.ok) {  
-      return {status:"failed"}
+      throw new Error("مشکلی پیش آمده")
       
     }
     // revalidateTag('/')
@@ -64,7 +64,7 @@ export const deleteTodoJson = async (id) => {
     
   } catch (error) {
     console.log(error)
-    return {status:"failed"}
+    throw new Error("مشکلی پیش آمده")
 
     // throw new Error('مشکلی پیش آمده است')
     
