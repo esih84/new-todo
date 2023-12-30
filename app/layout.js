@@ -4,6 +4,7 @@ import ReactQueryProvide from '@/providers/reactQueryProvide'
 import NextAuthProvider from '@/providers/nextAuthProvider'
 import AddTodo from '@/components/dialog/addTodo'
 import EditTodo from '@/components/dialog/editTodo'
+import ThemProvider from '@/providers/themProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,9 +19,11 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ReactQueryProvide>
           <NextAuthProvider>
-            <AddTodo/>
-            <EditTodo/>
-            {children}
+            <ThemProvider>
+              <AddTodo/>
+              <EditTodo/>
+              {children}
+            </ThemProvider>  
           </NextAuthProvider>
         </ReactQueryProvide>  
         
