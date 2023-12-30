@@ -23,7 +23,7 @@ export default async function Home({searchParams,searchParams:{query}}) {
   // console.log({data, metadata})
   return (
     <Container  maxWidth="lg" >
-        <Todos take={take} PageNumber={PageNumber} initialData={initialData} query={query}/>
+        <Todos take={take} PageNumber={PageNumber} initialData={initialData} searchParams={searchParams} query={query}/>
     </Container>
 );
 }
