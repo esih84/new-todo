@@ -1,15 +1,20 @@
 'use client'
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+
 import { Card, CardActions, CardContent, Checkbox,Container,Typography } from '@mui/material';
 import axios from "axios";
 import Loading from "@/modules/Loading";
 import { useQuery } from "@tanstack/react-query";
 import Buttons from "@/modules/Buttons";
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 
 const TodoDetail = ({params:{todoId}}) => {
+  const router = useRouter()
+  const {data:user}= useSession()
+  if(!user){
+      router.push('/SignIn')
+  }
     // console.log(todoId)
 
 
@@ -17,7 +22,7 @@ const TodoDetail = ({params:{todoId}}) => {
       queryKey:['todo',todoId],
       queryFn:()=> axios.get(`http://localhost:4000/todos/${todoId}`).then(res=>res.data),
     })
-    console.log(data)
+    // console.log(data)
     if (isLoading) {
       return(
         <div className=" flex items-center justify-center min-h-dvh">
