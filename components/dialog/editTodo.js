@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import DialogBase from './dailog';
 import useTodoId from '@/hooks/useTodoId';
-import { useMutation } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
 import { editTodo } from '@/server/action';
 import { useRouter } from 'next/navigation';
 
 export default function EditTodo() {
+  const queryclient = useQueryClient()
     const router = useRouter()
     const body = useTodoId((state) => state.body)
     const id = useTodoId((state) => state.id)
@@ -18,7 +19,11 @@ export default function EditTodo() {
     },[body])
     const [todo, setTodo]= useState('')
     const editModal =  useEditTodo()
-    const mutation = useMutation({mutationFn:editTodo})
+    const mutation = useMutation({mutationFn:editTodo,onSuccess:()=>{
+      queryclient.invalidateQueries({queryKey:['todos']})
+      queryclient.invalidateQueries({queryKey:['todo']})
+
+    }})
     
     const submitHandler =async(e)=>{
         mutation.mutate({id,todo})
@@ -27,7 +32,6 @@ export default function EditTodo() {
             toast.success("ویرایش شد")
             setTodo("")
             setTimeout(()=>{editModal.onClose()},1000)
-            router.refresh()
           }
           if(mutation.error){
             toast.error("ویرایش نا موفق")
